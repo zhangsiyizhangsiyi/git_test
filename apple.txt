@@ -3,4 +3,6 @@ apple
 apple
 apple
 apple
-apple hot_unfix
+<<<<<<< HEAD
+apple cool_unfix
+>>>>>>> hot_fix
