@@ -1,6 +1,6 @@
 apple add some char
 apple 2st add some char
-apple
+apple 4st edit by zhangsiyi
 apple
 apple
 <<<<<<< HEAD
