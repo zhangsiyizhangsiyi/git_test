@@ -1,0 +1,8 @@
+git init
+git config --global user.name zhangxy
+git config --global credential.helper cache
+git config --global http.sslCAInfo  /c/Users/admin/Desktop/_.superred.com.cn.crt
+git remote add origin https://gitlab.superred.com.cn/innovation-rd-center/sim/audit.git
+git fetch
+git checkout dev
+git pull origin dev
