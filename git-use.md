@@ -1,3 +1,6 @@
+# 关于github推送时权限的问题
+sudo chown -R $(whoami) .git
+sudo chown -R $(whoami) /Users/zhangsiyi/Desktop/nfs3-test-mac/git/git_test
 
 ~history
 1  ls
