@@ -13,7 +13,7 @@ git remote add  origin https://github.com/samba-team/samba.git && git fetch && g
         cpanminus && cpanm Parse::Yapp::Driver && \
         apt -y install   libjansson-dev  libarchive-dev  libacl1-dev  libldap2-dev  libpam-dev libdbus-1-dev \
         python3-markdown python3-dnspython libc6-dev libpopt-dev libgpgme11-dev libgnutls28-dev libacl1-dev \
-        libldap2-dev libjansson-dev libarchive-dev libtasn1-bin libssl-dev libncurses5-dev libglusterfs-dev  xfslibs-dev \
+        libldap2-dev libjansson-dev libarchive-dev libtasn1-bin libssl-dev libncurses5-dev libglusterfs-dev  xfslibs-dev krb5-user \
         libdmlc0   libdmlc-dev   libdmalloc5  libdmalloc-dev liburing-dev libfam-dev kmod selinux-utils apparmor  libdmapsharing-3.0-dev  && \
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" && \
    chsh -s $(which zsh)  && source ~/.zshrc 
