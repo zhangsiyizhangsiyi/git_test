@@ -1,3 +1,20 @@
+编辑 /etc/hostname 文件：在终端中使用以下命令来编辑 /etc/hostname 文件，将其中的主机名设置为 kersmb.com。
+
+sudo nano /etc/hostname
+在编辑器中，将主机名修改为 kersmb.com，然后保存并关闭文件。请确保只有一行内容，表示新的主机名。
+
+编辑 /etc/hosts 文件：使用以下命令来编辑 /etc/hosts 文件，将其中的 127.0.1.1 行的主机名也设置为 kersmb.com。
+
+sudo nano /etc/hosts
+在编辑器中找到 127.0.1.1 行，并将其修改为：
+127.0.1.1    kersmb.com
+保存并关闭文件。
+
+重启计算机：为了使更改生效，请在终端中输入以下命令重启计算机。
+sudo reboot
+
+# 本文是samba编译安装使用
+
 我要 的是kerberos和samba的集成 
 
 第一个大要求：Kerberos的网络域名命名为 kersmb.com ，服务器命名 kersmb.server.com，我该如何操作能实现命名需求，命名时我不知道是否需要配置密码么
@@ -34,6 +51,17 @@ Copy code
 这样配置后，Kerberos 域名将设置为 kersmb.com，服务器命名将设置为 kersmb.server.com。
 
 第二个大要求：为 Samba 创建一个单独的 Kerberos 用户，命名为 ker-sam-user
+
+
+//--------------------------------------------------------------
+kdb5_util create -r KERSMB.COM -s
+service krb5-kdc start
+vim /etc/krb5kdc/kadm5.acl
+        */admin@KERSMB.COM *
+
+chmod 644 /etc/krb5kdc/kadm5.acl
+service krb5-admin-server start
+//--------------------------------------------------------------
 
 创建 Samba 使用的 Kerberos 用户 ker-sam-user：
 bash
