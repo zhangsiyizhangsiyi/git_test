@@ -159,3 +159,6 @@ smbclient //your_samba_server_hostname/samba-share -k
 
 # macos 中 krb5 的krb5.conf 
 vim /usr/local/Cellar/krb5/1.21.1/share/examples/krb5/krb5.conf
+
+# 重启krb5 服务
+service krb5-kdc start;service krb5-admin-server start
