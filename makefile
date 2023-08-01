@@ -1,24 +1,27 @@
-#目标:依赖
-#	命令
-#
-#	wildcard
-#	patsubst
-#
-#	$@ $< $^
-#	
-#	两类模式，伪目标
+一个规则，两个函数，三个变量，两种模式，伪目标
 
-src=$(wildcard *.c)
-obj=$(patsubst %.c , %.o , $(src))
+目标:依赖
+	命令
 
+wildcard \ patsubst
 
-a.out:$(obj)
-	gcc $^ -o $@
+$@ , $^ , $<
 
-$(obj):%.o:%.c
+%.o:%.c \ $(obj):%.o:%.c
+
+.PHONY:ALL clean
+
+src = $(wildcard *.c)
+obj = $(patsubst %.o,%.c,$(src))
+res = $(patsubst %,%.o,$(obj))
+
+ALL:$(res)
+
+%.o:%.c
 	gcc -c $< -o $@
-clean:
-	-rm -rf $(obj) a.out
-ALL:a.out
+%:%.o
+	gcc $< -o $@
 
+clean:
+	-rm -rf $(res) $(obj)
 .PHONY: clean ALL

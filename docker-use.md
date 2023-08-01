@@ -14,8 +14,8 @@ docker stop samba && docker rm samba && \
 
 apt -y install sed && sed -i 's/http:\/\/archive.ubuntu.com/http:\/\/mirrors.aliyun.com/g' /etc/apt/sources.list && \
 \
-mkdir /git && cd /git && apt -y update && apt -y install sed  git gcc gdb zsh curl vim  && git init && \
-          git config --global user.name zhangxy &&\
+mkdir /git && cd /git && apt -y update && apt -y install sed language-pack-zh-hans git gcc gdb zsh curl vim  && git init && \
+          git config --global user.name zhangxy && echo "export LANG=zh_CN.UTF-8" >> ~/.bashrc && source ~/.bashrc && \
           git config --global credential.helper cache  && \
 git remote add  origin https://github.com/samba-team/samba.git && git fetch && git checkout master && git pull origin master &&\
         apt -y install python3 xsltproc  libxml-libxslt-perl libxslt1-dev  libcups2-dev  libicu-dev  libglib2.0-dev libsystemd-dev gcc-mingw-w64-x86-64 \
@@ -39,13 +39,14 @@ docker exec -it samba /bin/zsh
 
 apt -y install sed && sed -i 's/http:\/\/archive.ubuntu.com/http:\/\/mirrors.aliyun.com/g' /etc/apt/sources.list && \
 \
-apt -y update && apt -y install sed git  zsh curl vim samba krb5-user krb5-config krb5-admin-server libpam-krb5  &&  \
+apt -y update && apt -y install sed git  zsh language-pack-zh-hans  curl vim samba krb5-user krb5-config krb5-admin-server libpam-krb5  &&  \
     git init && git config --global user.name zhangxy && git config --global credential.helper cache &&\
+    echo "export LANG=zh_CN.UTF-8" >> ~/.bashrc && source ~/.bashrc &&\
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" && \
    chsh -s $(which zsh)  && source ~/.zshrc
    
 # 一些附加工具
-apt -y install dnsutils iputils-ping net-tools ufw
+apt -y install dnsutils iputils-ping net-tools ufw iproute2 resolvconf
 
 
 # docker 和 mac宿主机的网络互连
