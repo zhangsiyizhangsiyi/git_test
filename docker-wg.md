@@ -14,6 +14,8 @@ systemctl restart docker
 
 # 阿里云部署docker
  snap install docker && docker && docker pull ubuntu
+# ubuntu 防火墙配置
+ apt -y install ufw && ufw allow 22/tcp  && ufw allow 50814/udp && ufw status && ufw enable
 
 # 容器内部
 
