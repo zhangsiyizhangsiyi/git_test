@@ -1,4 +1,15 @@
-
+# ubuntu server lts 
+snap refresh && snap list --all && snap install hello-world && \
+         snap install docker
+# ubuntu server 的docker pull很慢
+# 更换国内镜像源
+sudo vim /etc/docker/daemon.json
+{
+  "registry-mirrors": ["https://yxzrazem.mirror.aliyuncs.com", "http://hub-mirror.c.163.com", "https://docker.mirrors.ustc.edu.cn"]
+}
+# 重启docker服务
+systemctl daemon-reload && systemctl restart docker
+systemctl restart docker
  docker run -itd -p 50814:50814/udp  --privileged --name samba  ubuntu &&     docker exec -it --privileged  samba /bin/bash
 
 # 阿里云部署docker
@@ -86,3 +97,42 @@ ip route show
 如果你想在 macOS 上使用 WireGuard VPN，可能需要使用其他方法，比如在 macOS 主机上直接配置 WireGuard。你可以在 macOS 上安装原生的 WireGuard 应用程序，并通过配置文件来运行 WireGuard VPN。
 
 
+########################服务端###################
+# 启动WireGuard
+wg-quick up wg0
+# 停止WireGuard
+wg-quick down wg0
+# 查看WireGuard运行状态
+[root@localhost~]# wg
+interface: wg0
+  public key: b8fztAWxqS/SKQ619YTM09siKESbzoUiBeautnFsaGU=
+  private key: (hidden)
+  listening port: 50814
+
+peer: HF7vS/rpk2tEQ1WxWnh78Rp8lSuwEMLISqQsX6MFlwk=
+  endpoint: 221.225.202.158:11562
+  allowed ips: 10.0.8.0/24
+  latest handshake: 34 seconds ago
+  transfer: 16.26 KiB received, 12.87 KiB sent
+
+
+########################客户端###################
+# 启动WireGuard
+wg-quick up client
+# 停止WireGuard
+wg-quick down client
+# 查看WireGuard运行状态
+[root@localhost~]# wg
+[root@v2 ~]# wg
+interface: client
+  public key: HF7vS/rpk2tEQ1WxWnh78Rp8lSuwEMLISqQsX6MFlwk=
+  private key: (hidden)
+  listening port: 59633
+  fwmark: 0xca6c
+
+peer: b8fztAWxqS/SKQ619YTM09siKESbzoUiBeautnFsaGU=
+  endpoint: server公网的IP:50814
+  allowed ips: 0.0.0.0/0, ::/0
+  latest handshake: 17 seconds ago
+  transfer: 9.96 KiB received, 19.09 KiB sent
+  persistent keepalive: every 25 seconds
