@@ -141,4 +141,5 @@ peer: b8fztAWxqS/SKQ619YTM09siKESbzoUiBeautnFsaGU=
 
 
 
+wireguard 添加 多peer 方法
 https://nolebase.ayaka.io/%E7%AC%94%E8%AE%B0/%E2%98%81%EF%B8%8F%20%E5%90%8E%E7%AB%AF%E5%BC%80%E5%8F%91/%F0%9F%95%B8%20%E7%BD%91%E7%BB%9C/WireGuard%20VPN/WireGuard%20%E5%A4%9A%E7%94%A8%E6%88%B7%E7%AE%A1%E7%90%86.html
