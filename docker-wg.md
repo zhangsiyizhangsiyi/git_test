@@ -22,13 +22,16 @@ systemctl restart docker
 apt -y install sed && sed -i 's/http:\/\/archive.ubuntu.com/http:\/\/mirrors.aliyun.com/g' /etc/apt/sources.list && \
 mkdir /git && cd /git && apt -y update && apt -y install vim  sed language-pack-zh-hans &&\
 apt -y install libterm-readline-gnu-perl  dnsutils iputils-ping net-tools ufw iproute2 lsof resolvconf ;
-mv /var/lib/dpkg/info/resolvconf.* /tmp/ && apt -y update && apt -y install resolvconf &&
+mv /var/lib/dpkg/info/resolvconf.* /tmp/ && apt -y update && 
 echo "export LANG=zh_CN.UTF-8" >> ~/.bashrc && source ~/.bashrc &&\
 apt -y install wireguard
 
 # 开启ipv4流量转发
 echo "net.ipv4.ip_forward = 1" >> /etc/sysctl.conf
 sysctl -p
+
+# 单独安装sshd
+apt -y install resolvconf openssh-client openssh-server  
 
 # 创建并进入WireGuard文件夹
 mkdir -p /etc/wireguard && chmod 0777 /etc/wireguard
@@ -40,8 +43,8 @@ wg genkey | tee server_privatekey | wg pubkey > server_publickey
 wg genkey | tee client_privatekey | wg pubkey > client_publickey
 
 ##生成服务端的配置文件
-vim /etc/wireguard/wg0.conf
 
+echo "
 [Interface]
 PrivateKey = $(cat server_privatekey) # 填写本机的privatekey 内容
 Address = 10.0.8.1/32
@@ -52,8 +55,8 @@ DNS = 8.8.8.8
 MTU = 1420
 [Peer]
 PublicKey =  $(cat client_publickey)  # 填写对端的publickey 内容
-AllowedIPs = 10.0.8.10/32 
-# " > wg0.conf
+AllowedIPs = 10.0.8.10/32 " > wg0.conf
+
 # 设置开机自启
 systemctl enable wg-quick@wg0
 # 重要！如果名字不是eth0, 以下PostUp和PostDown处里面的eth0替换成自己服务器显示的名字
@@ -61,8 +64,8 @@ systemctl enable wg-quick@wg0
 # 以下内容一次性粘贴执行，不要分行执行
 
 ##生成客户端的配置文件
-vim  /etc/wireguard/client.conf
 
+echo "
 [Interface]
   PrivateKey = $(cat client_privatekey)  # 填写本机的privatekey 内容
   Address = 10.0.8.10/24
@@ -73,8 +76,8 @@ vim  /etc/wireguard/client.conf
   PublicKey = $(cat server_publickey)  # 填写对端的publickey 内容
   Endpoint = server公网的IP:50814
   AllowedIPs = 0.0.0.0/0, ::0/0
-  PersistentKeepalive = 25
-# " > client.conf
+  PersistentKeepalive = 25  " > client.conf
+
 # 注：文件在服务端配好了可以下载下来传到客户端
 
 
